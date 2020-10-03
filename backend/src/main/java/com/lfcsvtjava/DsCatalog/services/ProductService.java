@@ -1,5 +1,6 @@
 package com.lfcsvtjava.DsCatalog.services;
 
+
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
@@ -11,8 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lfcsvtjava.DsCatalog.dto.CategoryDTO;
 import com.lfcsvtjava.DsCatalog.dto.ProductDTO;
+import com.lfcsvtjava.DsCatalog.entities.Category;
 import com.lfcsvtjava.DsCatalog.entities.Product;
+import com.lfcsvtjava.DsCatalog.repositories.CategoryRepository;
 import com.lfcsvtjava.DsCatalog.repositories.ProductRepository;
 import com.lfcsvtjava.DsCatalog.services.exception.DatabaseException;
 import com.lfcsvtjava.DsCatalog.services.exception.ResourceNotFoundException;
@@ -23,6 +27,9 @@ public class ProductService {
 	
 		@Autowired
 		private ProductRepository repository;
+		
+		@Autowired
+		private CategoryRepository categoryRepository;
 		
 		@Transactional(readOnly=true)
 		public Page <ProductDTO>findAllPaged(PageRequest pageRequest){
@@ -43,11 +50,7 @@ public class ProductService {
 		@Transactional
 		public ProductDTO insert(ProductDTO dto) {
 			Product entity = new Product();
-			entity.setName(dto.getName());
-			entity.setPrice(dto.getPrice());
-			entity.setDate(dto.getDate());
-			entity.setImageUrl(dto.getImgUrl());
-			entity.setDescription(dto.getDescription());
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new ProductDTO(entity);
 			
@@ -57,11 +60,7 @@ public class ProductService {
 		public ProductDTO update(Long id, ProductDTO dto) {
 			try {
 				Product entity = repository.getOne(id);
-				entity.setName(dto.getName());
-				entity.setPrice(dto.getPrice());
-				entity.setDate(dto.getDate());
-				entity.setImageUrl(dto.getImgUrl());
-				entity.setDescription(dto.getDescription());
+				copyDtoToEntity(dto, entity);
 				entity = repository.save(entity);
 				return new ProductDTO(entity);
 			}
@@ -86,4 +85,18 @@ public class ProductService {
 				throw new DatabaseException("Integrity Violation");
 			}
 		}
+		
+		private void copyDtoToEntity(ProductDTO dto, Product entity) {
+			entity.setName(dto.getName());
+			entity.setPrice(dto.getPrice());
+			entity.setDate(dto.getDate());
+			entity.setImageUrl(dto.getImgUrl());
+			entity.setDescription(dto.getDescription());
+			
+			entity.getCategories().clear();
+			for(CategoryDTO catDto : dto.getCategories()) {
+				Category category = categoryRepository.getOne(catDto.getId());
+				entity.getCategories().add(category);
+			}
+		} 
 }
