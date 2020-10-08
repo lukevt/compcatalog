@@ -1,6 +1,6 @@
 import React from 'react'
 import  './styles.scss'
-import {ReactComponent as ProductImage} from '../../assets/images/product.svg'
+import {ReactComponent as ProductImage} from '../../../../core/assets/images/product.svg'
 
 const ProductCard =()=>(
     <div className="card-base border-radius-10 product-card">
