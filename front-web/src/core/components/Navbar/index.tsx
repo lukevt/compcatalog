@@ -11,13 +11,13 @@ const Navbar = () => (
         <div className="col-6 offset-2">
             <ul className="main-menu">
                 <li>
-                    <NavLink to="/" activeClassName="active" exact>Home</NavLink>
+                    <NavLink to="/"  exact>Home</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/products" activeClassName="active">Catalog</NavLink>
+                    <NavLink to="/products" >Catalog</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/admin" activeClassName="active">Admin</NavLink>
+                    <NavLink to="/admin" >Admin</NavLink>
                 </li>
             </ul>
         </div>
