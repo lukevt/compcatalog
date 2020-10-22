@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import './styles.scss'
 
@@ -6,7 +6,7 @@ type Props={
     title:string;
     children:React.ReactNode;
 }
-const BaseForme = ({title, children}:Props) =>{
+const BaseForme = ({title, children }:Props) =>{
     const history = useHistory();
 
     const handleCancel = () =>{

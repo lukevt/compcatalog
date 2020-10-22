@@ -1,7 +1,6 @@
 package com.lfcsvtjava.DsCatalog.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,80 +10,53 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "tb_category")
-public class Category implements Serializable{
+@Table(name = "tb_role")
+public class Role implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	@Column(columnDefinition = "TEXT")
+	private String authority;
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant createdAt;
+//	@ManyToMany(mappedBy = "users")
+//	private Set<User> users = new HashSet<>();
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant updatedAt;
-	
-	@ManyToMany(mappedBy = "categories")
-	private Set<Product> products =  new HashSet<>();
-	
-	public Category() {
+	public Role() {
 		
 	}
-	
-	
-	public Category(Long id, String name) {
-		super();
+
+	public Role(Long id, String authority) {
 		this.id = id;
-		this.name = name;
+		this.authority = authority;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+
+	public String getAuthority() {
+		return authority;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 	
 	
 
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
-	
-
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
-	
-	
-	
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-
-	@PrePersist
-	public void prePersist() {
-		createdAt = Instant.now();
-	}
-	
-	@PreUpdate
-	public void preUpdate() {
-		updatedAt = Instant.now();
-	}
+//	public Set<User> getUsers() {
+//		return users;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -102,7 +74,7 @@ public class Category implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Role other = (Role) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -114,4 +86,5 @@ public class Category implements Serializable{
 	
 	
 	
+
 }
