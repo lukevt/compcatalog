@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "tb_user")
@@ -24,6 +25,7 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
+	
 	private String firstName;
 	private String lastName;
 	@Column(unique = true)
