@@ -23,6 +23,8 @@ public class ProductDTO implements Serializable{
 	@Size(min=5,max=60, message="Name must be between 5 and 60 characters!")
 	@NotBlank(message="Mandatory Filed!")
 	private String name;
+	
+	@NotBlank(message="Mandatory Filed!")
 	private String description;
 	
 	@Positive(message="Price must be a posiitve number!")
