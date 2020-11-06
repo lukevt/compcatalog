@@ -1,7 +1,7 @@
  import React, { useState } from 'react'
  import './styles.scss'
  import AuthCard from '../Card'
- import { useForm } from 'react-hook-form';
+ import {useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom'
 import ButtonIcon from 'core/components/ButtonIcon'
 import { makeLogin } from 'core/utils/request';
@@ -12,7 +12,7 @@ type FormData={
     password:string
 }
  const Login = () =>{
-    const { register, handleSubmit} = useForm<FormData>();
+    const { register, handleSubmit, errors} = useForm<FormData>();
     const [hasError, setHasError] = useState(false);
     const history = useHistory()
 
@@ -36,20 +36,42 @@ type FormData={
                 </div>
             )}
            <form action="" className="login-form" onSubmit={handleSubmit(onSubmit)}>
-               <input 
-                type="email" 
-                className="form-control input-base margin-bottom-30"
-                placeholder="Email"
-                name="username"
-                ref={register({required:true})}
-                />
-               <input 
-                type="password" 
-                className="form-control input-base"
-                placeholder="Password"
-                name="password"
-                ref={register ({required:true})}
-                />
+               <div className="margin-bottom-30">
+                    <input 
+                        type="email" 
+                        className={`form-control input-base ${errors.username ? 'is-invalid' : ''}`}
+                        placeholder="Email"
+                        name="username"
+                        ref={register({
+                            required: "This Field is required",
+                            pattern: {
+                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                              message: "Invalid username"
+                            }
+                          })}
+                    />
+                    {errors.username && (
+                        <div className="invalid-feedback d-block">
+                            {errors.username.message}
+                        </div>
+                    )}
+                </div>
+                <div className="margin-bottom-30">
+                    <input 
+                        type="password" 
+                        className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}
+                        placeholder="Password"
+                        name="password"
+                        ref={register ({required:"This Field is required"})}
+                    />
+                    {errors.password && (
+                        <div className="invalid-feedback d-block">
+                            {errors.password.message}
+                        </div>
+                    )}
+
+                </div>
+               
                 <Link to="/ad,in/auth/recover" className="login-recover-link"> forgot password?</Link>
                 
                 <div className="login-submit">

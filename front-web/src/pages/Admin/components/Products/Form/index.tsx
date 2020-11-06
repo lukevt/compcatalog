@@ -1,4 +1,4 @@
-import { makeRequest } from 'core/utils/request'
+import { makePrivateRequest } from 'core/utils/request'
 import React, { useState } from 'react'
 import BaseForm from '../../BaseForm'
 import './styles.scss'
@@ -32,7 +32,7 @@ const Form =()=>{
            imgUrl:"https://d3ift91kaax4b9.cloudfront.net/media/catalog/product/cache/eb51c2c13a771900639634451ef25d5a/1/_/1_314_77.jpg",
            categories:[{id:formData.category}]
        }
-    makeRequest({url:'/products', method:'POST', data:payload})
+    makePrivateRequest({url:'/products', method:'POST', data:payload})
     .then(()=>{
         setformData({name:'', price:'', category:'', description:''})
     })
