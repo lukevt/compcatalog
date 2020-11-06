@@ -11,17 +11,23 @@ const Routes =()=>(
     <BrowserRouter>
     <Navbar/>
         <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/products" component={Catalog}/>
+            <Route path="/" exact>
+                <Home/>
+            </Route>
+            <Route path="/products" exact>
+                <Catalog/>
+            </Route>
+            <Route path="/products/:productId">
+                <ProductDetails/>
+            </Route>
             <Redirect from="/admin/auth" to="/admin/auth/login" exact/>
-            <Route to="/admin/auth">
+            <Route path="/admin/auth">
                 <Auth/>
             </Route>
             <Redirect from="/admin" to="/admin/products" exact/>
             <Route path="/admin">
                 <Admin/>
-            </Route>
-            <Route path="/products/:productId" component={ProductDetails}/>
+            </Route>            
         </Switch>
     </BrowserRouter>
 );
