@@ -3,6 +3,7 @@
     color:#FFF;
     align-items: center;
     padding-left: 40px;
+    padding-right: 40px;
     margin-left: 0;
     margin-right: 0;
 
@@ -14,13 +15,19 @@
 
 .main-menu{
     display:flex;
-    justify-content: space-between;
+    justify-content: center;
     font-size: 18;
-    width: 380px;
 
-    a{
+    li:nth-child(2){
+        margin-right: 85px;
+        margin-left: 85px;
+    }   
+}
+
+.nav-link{
         color: rgba(255, 255, 255, 0.5);
         font-style: normal;
+        text-transform: uppercase;
 
         &.active{
             font-weight: bold;
@@ -31,5 +38,3 @@
             color:#FFF;
         }
     }
-    
-}

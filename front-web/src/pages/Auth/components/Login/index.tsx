@@ -85,7 +85,7 @@ type LocationState={
                 </div>
                 <div className="text-center">
                     <span className="not-registered">Not registered?</span>
-                    <Link to="/admin/auth/register" className="login-register-link">Register</Link>
+                    <Link to="/auth/register" className="login-register-link">Register</Link>
                 </div>
            </form>
         </AuthCard>
