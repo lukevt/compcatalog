@@ -2,7 +2,7 @@ import React from 'react'
 import  './core/assets/styles/custom.scss'
 import './App.scss'
 import Routes from './Routes'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 
 const App  = () => {
 
