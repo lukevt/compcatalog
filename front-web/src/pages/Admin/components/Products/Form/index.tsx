@@ -1,12 +1,12 @@
 //import { isAllowedByRole } from 'core/utils/auth'
 //import { isAllowedByRole } from 'core/utils/auth'
-import { makePrivateRequest } from 'core/utils/request'
-import React from 'react'
+import { makePrivateRequest, makeRequest } from 'core/utils/request'
+import React, { useEffect } from 'react'
 import { useForm} from 'react-hook-form'
 import BaseForm from '../../BaseForm'
 import './styles.scss'
 import {toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 
 type FormState={
@@ -16,24 +16,50 @@ type FormState={
     imgUrl:string;
 }
 
+type ParamsType={
+    productId:string
+}
+
 
 const Form =()=>{
-    const { register, handleSubmit, errors} = useForm<FormState>();
+    const { register, handleSubmit, errors, setValue} = useForm<FormState>();
     const history = useHistory();
+    const {productId} = useParams<ParamsType>();
+    const isEditing = productId !== "create"
+    const formTitle = isEditing ? "Update Product" : "Create a Product"
+    useEffect(() => {
+        if(isEditing){
+            makeRequest({url:`/products/${productId}`})
+        .then(res=>{
+            setValue('name', res.data.name);
+            setValue('price', res.data.price);
+            setValue('description', res.data.description);
+            setValue('imgUrl', res.data.imgUrl);
+        })
+        }
+    }, [productId, isEditing, setValue])
+
    const onSubmit=(data:FormState)=>{
        console.log(data)
-    makePrivateRequest({url:'/products1', method:'POST', data})
+    makePrivateRequest({
+        url: isEditing ? `/products/${productId}` : '/products', 
+        method: isEditing ? 'PUT'  : 'POST', 
+        data}
+    )
     .then(()=>{
-        toast.success('Product sucessfully created!')
+        toast.info('Product sucessfully created!')
         history.push('/admin/products')
     })
     .catch(()=>{
         toast.error('Error creating the product!')
+        
     })
     }
     return(
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-            <BaseForm title="Register a Product">
+            <BaseForm 
+                title={formTitle}
+            >
             <div className="row">
                 <div className="col-6">
                     <div className="margin-bottom-30">

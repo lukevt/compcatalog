@@ -20,7 +20,7 @@ const BaseForme = ({title, children }:Props) =>{
             {children}
             <div className="base-form-actions">
                 <button className="btn btn-outline-danger btn-lg border-radious-10 mr-3 " onClick={handleCancel}>Cancel</button>
-                <button className="btn btn-primary btn-lg border-radious-10 mr-3">Register</button>
+                <button className="btn btn-primary btn-lg border-radious-10">Save</button>
             </div>
         </div>
     )
