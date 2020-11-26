@@ -7,7 +7,7 @@ type Props = {
     product:Product;
 }
 const Card = ({product}:Props) =>{
-    console.log(product)
+    
     return (
         <div className="card-base product-card-admin border-radius-10">
             <div className="row">

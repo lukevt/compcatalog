@@ -10,7 +10,6 @@ const List = () =>{
     const [productsResponse, setProductsResponse] = useState<ProductsResponse>();
     const [isLoading, setIsLoading] = useState(false);
     const [activePage, setAcitvePage] = useState(0);
-    console.log(productsResponse)
     useEffect(() => {
         const params ={
             page:activePage, 
