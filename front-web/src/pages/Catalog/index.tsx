@@ -36,9 +36,7 @@ const Catalog =()=>{
                      </Link>
                     ) 
                  })
-            )}
-            
-            
+            )}     
         </div>
         {productsResponse &&  (
         <Pagination 
